@@ -11,6 +11,8 @@
 	$password = mysqli_real_escape_string($link, $_POST['password']);
 	$hash = password_hash($password, PASSWORD_DEFAULT);
 
+	$errors = '';
+
 	// Run registration code
 	if (isset($_POST['regBtn'])) {
 
@@ -18,11 +20,11 @@
 
 			if (empty($_POST['email'])) {
 
-				$emailErr = "Email can't be empty";
+				$errors .= "Email can't be empty";
 
 			} else if (empty($_POST['password'])) {
 
-				$pwErr = "Password can't be empty";
+				$errors .= "Password can't be empty<br>";
 
 			} else {
 
@@ -32,14 +34,13 @@
 
 				if (mysqli_num_rows($result) > 0) {
 
-					$emailErr = 'That email already exists';
+					$errors .= 'That email already exists<br>';
 
 				} else {
 
 					$query = "INSERT INTO `users` (`email`, `password`) VALUES('".$email."', '".$hash."')";
 
 					if (mysqli_query($link, $query)) {
-						$message = 'Signed up successfully!';
 						if (isset($_POST['checkbox'])) {
 							setcookie('loggedIn', '', time() + 60 * 60 * 24 * 365);
 						}
@@ -49,7 +50,7 @@
 
 					} else {
 
-						$message = 'Oops, something went wrong! Try again...<br>'.$link->error;
+						$errors .= 'Oops, something went wrong! Try again...<br>'.$link->error;
 
 					}
 				}
@@ -62,11 +63,11 @@
 
 			if (empty($_POST['email'])) {
 
-				$emailErr = "Email can't be empty";
+				$errors .= "Email can't be empty<br>";
 
 			} else if (empty($_POST['password'])) {
 
-				$pwErr = "Password can't be empty";
+				$errors .= "Password can't be empty<br>";
 
 			} else {
 
@@ -91,14 +92,17 @@
 						header('Location: diary.php');
 
 					} else {
-						echo "That email doesn't exist or the password is incorrect!";
+						$errors .= "That email doesn't exist or the password is incorrect!<br>";
 					}
 
 				} else {
-					echo "That email doesn't exist or the password is incorrect!";
+					$errors .= "That email doesn't exist or the password is incorrect!<br>";
 				}
 			}
 		}
+	}
+	if (!empty($errors)) {
+		$message = '<div class="alert alert-danger col-sm-10"><strong>There were error(s) in your form:</strong><br>'.$errors.'</div>';
 	}
 
 ?>
@@ -126,10 +130,8 @@
 			<p><strong>Store your thoughts permanently and securely.</strong></p>
 			<div class="container col-sm-8 offset-sm-3" >
 
-				<div class="alert alert-danger col-sm-10">
-					<p><strong>There we</strong></p>
-					<?php echo $message, $emailErr, $pwErr; ?>
-				</div>
+			<?php if ($message) {echo $message;} ?>
+
 				<!-- Sign up form -->
 				<form class="" id="registerForm" action="" method="post">
 					<div class="form-group row">
@@ -167,12 +169,36 @@
 
 				<!-- Log in form -->
 				<form class="hidden" id="loginForm" action="" method="post">
-					<p>Already have an account? Log in below.</p>
-					<input type="email" name="email" value="<?php if(isset($_POST['logBtn'])){if(empty($password)){echo $email;}}?>" placeholder="Your email">
-					<input type="password" name="password" value="" placeholder="Password">
-					<input type="checkbox" name="checkbox">
-					<input type="submit" name="logBtn" value="Log In!">
-					<a href="#" id="registerLink">Register</a>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<p>Already have an account? Log in below.</p>
+							<input class="form-control" type="email" name="email" value="<?php if(isset($_POST['logBtn'])){if(empty($password)){echo $email;}}?>" placeholder="Your email">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<input class="form-control" type="password" name="password" value="" placeholder="Password">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<div class="form-check">
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox" name="checkbox"> Remember Me!
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<input class="btn btn-primary" type="submit" name="logBtn" value="Log In!">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<a href="#" id="registerLink">Register</a>
+						</div>
+					</div>
 				</form>
 			</div>
 
