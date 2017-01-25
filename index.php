@@ -124,29 +124,33 @@
 </head>
 <body>
 	<div class="container-fluid" id="mainPage">
-		<div class="" id="mainContent">
+		<div class="" >
 
-			<h1>Secret Diary</h1>
-			<p><strong>Store your thoughts permanently and securely.</strong></p>
-			<div class="container col-sm-8 offset-sm-3" >
+			<div class="container col-sm-10 offset-sm-1 col-lg-4 offset-lg-4" id="mainContent">
+				<div class="row">
+					<div class="col-sm-10 offset-sm-1">
+						<h1>Secret Diary</h1>
+						<p><strong>Store your thoughts permanently and securely.</strong></p>
 
-			<?php if ($message) {echo $message;} ?>
+						<?php if ($message) {echo $message;} ?>
+					</div>
+				</div>
 
 				<!-- Sign up form -->
 				<form class="" id="registerForm" action="" method="post">
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<p>Interested? Sign up now.</p>
 							<input type="email" class="form-control" name="email" value="<?php if(isset($_POST['regBtn'])){if(empty($password)){echo $email;}}?>" placeholder="Your email">
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<input type="password" class="form-control" name="password" value="" placeholder="Password">
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<div class="form-check">
 								<label class="form-check-label">
 									<input class="form-check-input" type="checkbox" name="checkbox"> Remember Me!
@@ -155,12 +159,12 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<input type="submit" class="btn btn-primary" name="regBtn" value="Sign Up!">
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<a href="#" id="loginLink">Log In</a>
 						</div>
 					</div>
@@ -170,18 +174,18 @@
 				<!-- Log in form -->
 				<form class="hidden" id="loginForm" action="" method="post">
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<p>Already have an account? Log in below.</p>
 							<input class="form-control" type="email" name="email" value="<?php if(isset($_POST['logBtn'])){if(empty($password)){echo $email;}}?>" placeholder="Your email">
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<input class="form-control" type="password" name="password" value="" placeholder="Password">
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<div class="form-check">
 								<label class="form-check-label">
 									<input class="form-check-input" type="checkbox" name="checkbox"> Remember Me!
@@ -190,12 +194,12 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<input class="btn btn-primary" type="submit" name="logBtn" value="Log In!">
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
+						<div class="col-sm-10 offset-sm-1">
 							<a href="#" id="registerLink">Register</a>
 						</div>
 					</div>

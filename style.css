@@ -1,21 +1,28 @@
 body{
 	padding: 0;
 	margin: 0;
+	color: white;
+	text-shadow: 1px 1px black;
+	font-size: 120%;
 }
 #mainPage {
 	height: 100vh;
 	width: 100vw;
 	background-image: url("bg-dark.jpg");
 	background-repeat: no-repeat;
-	text-align: center;
 }
 #mainContent {
-	padding-top: 30%;
+	text-align: center;
+	padding-top: 200px;
+	/*padding-left: 75px;*/
+	/*background-color: grey;*/
 }
 #header {
 	width: 100%;
 	height: 58px;
 	padding: 10px 15px;
+	color: black;
+	text-shadow: none;
 	/*background-color: red;*/
 }
 #logo {
@@ -41,7 +48,29 @@ textarea {
 	width:100%;
 	resize: none;
 }
+a {
+	color: white;
+}
+a:hover {
+	color: white;
+}
 
 .hidden {
 	display: none;
+}
+
+@media (min-height: 900px) {
+	#mainContent {
+		padding-top: 350px;
+	}
+}
+@media (max-height: 700px) {
+	#mainContent {
+		padding-top: 150px;
+	}
+}
+@media (max-height: 600px) {
+	#mainContent {
+		padding-top: 100px;
+	}
 }
