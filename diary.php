@@ -3,9 +3,12 @@
 	if (!isset($_SESSION['loggedIn'])) {
 		header('Location: index.php');
 	}
-
 	
+	require 'db_connect.php';
 
+	$content = $_GET['content'];
+
+	echo $content;
 
 ?>
 
@@ -48,5 +51,21 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('textarea').on('keydown', function () {
+				var textInput = $('textarea').val();
+
+				$.ajax({
+					type: 'GET',
+					url: 'diary.php',
+					data: {
+						content = textInput
+					}
+				})
+			})
+		});
+
+	</script>
 </body>
 </html>
