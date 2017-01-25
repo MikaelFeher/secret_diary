@@ -98,12 +98,10 @@
 		}
 	}
 	if (!empty($errors)) {
-		$message = '<div class="alert alert-danger col-sm-10"><strong>There were error(s) in your form:</strong><br>'.$errors.'</div>';
+		$message = '<div class="row"><div class="alert alert-danger col-sm-8 offset-sm-2"><strong>There were error(s) in your form:</strong><br>'.$errors.'</div></div>';
 	}
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -113,6 +111,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<title>Secret Diary</title>
@@ -121,16 +120,14 @@
 <body>
 	<div class="container-fluid" id="mainPage">
 		<div class="" >
-
 			<div class="container col-sm-10 offset-sm-1 col-lg-4 offset-lg-4" id="mainContent">
 				<div class="row">
 					<div class="col-sm-10 offset-sm-1">
 						<h1>Secret Diary</h1>
 						<p><strong>Store your thoughts permanently and securely.</strong></p>
-
-						<?php if ($message) {echo $message;} ?>
 					</div>
 				</div>
+					<?php if ($message) {echo $message;} ?>
 
 				<!-- Sign up form -->
 				<form class="" id="registerForm" action="" method="post">
@@ -164,7 +161,6 @@
 							<a href="#" id="loginLink">Log In</a>
 						</div>
 					</div>
-
 				</form>
 
 				<!-- Log in form -->

@@ -1,8 +1,7 @@
 body{
 	padding: 0;
 	margin: 0;
-	color: white;
-	text-shadow: 1px 1px black;
+	color: #333;
 	font-size: 120%;
 }
 #mainPage {
@@ -14,8 +13,6 @@ body{
 #mainContent {
 	text-align: center;
 	padding-top: 200px;
-	/*padding-left: 75px;*/
-	/*background-color: grey;*/
 }
 #header {
 	width: 100%;
@@ -23,7 +20,6 @@ body{
 	padding: 10px 15px;
 	color: black;
 	text-shadow: none;
-	/*background-color: red;*/
 }
 #logo {
 	float: left;
@@ -49,14 +45,17 @@ textarea {
 	resize: none;
 }
 a {
-	color: white;
+	color: #333;
 }
 a:hover {
-	color: white;
+	color: #333;
 }
 
 .hidden {
 	display: none;
+}
+#contentForm {
+	height: 100%;
 }
 
 @media (min-height: 900px) {
