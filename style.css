@@ -3,12 +3,14 @@ body{
 	margin: 0;
 	color: #333;
 	font-size: 120%;
+	background-image: url("bg-dark.jpg");
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100vw;
 }
 #mainPage {
 	height: 100vh;
 	width: 100vw;
-	background-image: url("bg-dark.jpg");
-	background-repeat: no-repeat;
 }
 #mainContent {
 	text-align: center;
@@ -20,6 +22,7 @@ body{
 	padding: 10px 15px;
 	color: black;
 	text-shadow: none;
+	background-color: white;
 }
 #logo {
 	float: left;
@@ -35,8 +38,6 @@ body{
 #mainArea {
 	width: 100vw;
 	height: calc(100vh - 58px);
-	background-image: url("bg-dark.jpg");
-	background-repeat: no-repeat;
 	padding: 35px;
 }
 textarea {
@@ -57,15 +58,26 @@ a:hover {
 #contentForm {
 	height: 100%;
 }
+#feedbackLink {
+	padding: 0;
+	margin: 0;
+	color: white;
+}
+#feedbackLink a {
+	padding: 0;
+	margin: 0;
+	color: white;
+}
+
 
 @media (min-height: 900px) {
 	#mainContent {
-		padding-top: 350px;
+		padding-top: 250px;
 	}
 }
 @media (max-height: 700px) {
 	#mainContent {
-		padding-top: 150px;
+		padding-top: 100px;
 	}
 }
 @media (max-height: 600px) {

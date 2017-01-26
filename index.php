@@ -3,16 +3,15 @@
 
 	require 'db_connect.php';
 
-	$email = mysqli_real_escape_string($link, $_POST['email']);
-	$password = mysqli_real_escape_string($link, $_POST['password']);
-	$hash = password_hash($password, PASSWORD_DEFAULT);
+	$errors = $message = '';
 
-	$errors = '';
+	if($_POST){
+		$email = mysqli_real_escape_string($link, $_POST['email']);
+		$password = mysqli_real_escape_string($link, $_POST['password']);
+		$hash = password_hash($password, PASSWORD_DEFAULT);
 
-	// Run registration code
-	if (isset($_POST['regBtn'])) {
-
-		if (array_key_exists('email', $_POST) || array_key_exists('password', $_POST)) {
+		// Registration code
+		if (isset($_POST['regBtn'])) {
 
 			if (empty($_POST['email'])) {
 
@@ -47,15 +46,12 @@
 					} else {
 
 						$errors .= 'Oops, something went wrong! Try again...<br>'.$link->error;
-
 					}
 				}
 			}
-		}
 
-	} else if (isset($_POST['logBtn'])) {
-
-		if (array_key_exists('email', $_POST) || array_key_exists('password', $_POST)) {
+		// Login code
+		} else if (isset($_POST['logBtn'])) {
 
 			if (empty($_POST['email'])) {
 
@@ -67,9 +63,11 @@
 
 			} else {
 
-				$query = "SELECT `*` FROM `users` WHERE email = '".$email."'";
+				$query = "SELECT * FROM `users` WHERE email = '$email'";
 
 				$result = mysqli_query($link, $query);
+
+				print_r($result);
 
 				if (mysqli_num_rows($result) > 0) {
 
@@ -96,9 +94,10 @@
 				}
 			}
 		}
-	}
-	if (!empty($errors)) {
-		$message = '<div class="row"><div class="alert alert-danger col-sm-8 offset-sm-2"><strong>There were error(s) in your form:</strong><br>'.$errors.'</div></div>';
+		if (!empty($errors)) {
+			$message = '<div class="row"><div class="alert alert-danger col-sm-8 offset-sm-2"><strong>There were error(s) in your form:</strong><br>'.$errors.'</div></div>';
+		}
+
 	}
 
 ?>
@@ -158,7 +157,8 @@
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-10 offset-sm-1">
-							<a href="#" id="loginLink">Log In</a>
+							<a href="#" id="loginLink">Log In</a> <span>//</span>
+							<a href="mailto:mikael.feher@gmail.com?Subject=Secret%20Diary" target="_top">Feedback</a>
 						</div>
 					</div>
 				</form>
@@ -192,14 +192,14 @@
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-10 offset-sm-1">
-							<a href="#" id="registerLink">Register</a>
+							<a href="#" id="registerLink">Register</a> <span>//</span> <a href="mailto:mikael.feher@gmail.com?Subject=Secret%20Diary" target="_top">Feedback</a>
 						</div>
 					</div>
 				</form>
 			</div>
-
 		</div>
 	</div>
+
 
 	<!-- Bootstrap and jQuery -->
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
