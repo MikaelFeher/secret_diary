@@ -5,6 +5,17 @@
 
 	$errors = $message = '';
 
+	if(array_key_exists('logout', $_GET)) {
+		session_destroy();
+		setcookie('id', '', time() - 60*60);
+		$_COOKIE['id'] = '';
+
+	} else if (array_key_exists('id', $_SESSION) || array_key_exists('id', $_COOKIE)){
+		header('Location: diary.php');
+	}
+
+	unset($_GET['logout']);
+
 	if($_POST){
 		$email = mysqli_real_escape_string($link, $_POST['email']);
 		$password = mysqli_real_escape_string($link, $_POST['password']);
@@ -36,11 +47,14 @@
 					$query = "INSERT INTO `users` (`email`, `password`) VALUES('".$email."', '".$hash."')";
 
 					if (mysqli_query($link, $query)) {
-						if (isset($_POST['checkbox'])) {
-							setcookie('loggedIn', '', time() + 60 * 60 * 24 * 365);
+
+						$_SESSION['id'] = mysqli_insert_id($link);
+
+
+						if ($_POST['checkbox'] = 1) {
+							setcookie('id', mysqli_insert_id($link), time() + 60 * 60 * 24 * 365);
 						}
-						$_SESSION['email'] = $email;
-						$_SESSION['loggedIn'] = true;
+
 						header('Location: diary.php');
 
 					} else {
@@ -67,27 +81,28 @@
 
 				$result = mysqli_query($link, $query);
 
-				print_r($result);
-
 				if (mysqli_num_rows($result) > 0) {
 
 					while ($row = mysqli_fetch_array($result)) {
 						$dbPassword = $row['password'];
+						$id = $row['id'];
 					}
 
-					if (password_verify($password, $dbPassword)) {
-
-						if (isset($_POST['checkbox'])) {
-							setcookie('loggedIn', '', time() + 60 * 60 * 24 * 365);
-						}
-
-						$_SESSION['email'] = $email;
-						$_SESSION['loggedIn'] = true;
-						header('Location: diary.php');
-
-					} else {
-						$errors .= "That email doesn't exist or the password is incorrect!<br>";
+					if (!password_verify($password, $dbPassword)) {
+						die("That email doesn't exist or the password is incorrect!");
 					}
+
+					$_SESSION['email'] = $email;
+
+					if ($_POST['checkbox'] = 2) {
+						setcookie('id', mysqli_insert_id($link), time() + 60 * 60 * 24 * 365);
+					}
+
+					header('Location: diary.php');
+
+
+					// } else {
+					// 	$errors .= "That email doesn't exist or the password is incorrect!<br>";
 
 				} else {
 					$errors .= "That email doesn't exist or the password is incorrect!<br>";
@@ -145,7 +160,7 @@
 						<div class="col-sm-10 offset-sm-1">
 							<div class="form-check">
 								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox" name="checkbox"> Remember Me!
+									<input class="form-check-input" type="checkbox" name="checkbox" value=1> Remember Me!
 								</label>
 							</div>
 						</div>
@@ -180,7 +195,7 @@
 						<div class="col-sm-10 offset-sm-1">
 							<div class="form-check">
 								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox" name="checkbox"> Remember Me!
+									<input class="form-check-input" type="checkbox" name="checkbox" value=2> Remember Me!
 								</label>
 							</div>
 						</div>

@@ -1,18 +1,24 @@
 <?php
 	session_start();
-	if (!isset($_SESSION['loggedIn'])) {
-		header('Location: index.php');
-	}
 
 	require 'db_connect.php';
 
+	if(array_key_exists('id', $_COOKIE)) {
+		$_SESSION['id'] = $_COOKIE['id'];
+	}
+
+	if (!array_key_exists('id', $_SESSION)) {
+		header('Location: index.php');
+	}
+
 	$email = $_SESSION['email'];
 
-	$query = mysqli_query($link, "SELECT content FROM `users` WHERE email = '$email'");
+	$query = mysqli_query($link, "SELECT * FROM `users` WHERE email = '$email'");
 
 	while ($row = mysqli_fetch_array($query)) {
-			$content = $row['content'];
+		$content = $row['content'];
 	}
+
 ?>
 
 
@@ -35,7 +41,33 @@
 		<div id="logo">
 			<h1>Secret Diary</h1>
 		</div>
-		<a href="logout.php" id="logoutBtn" class="btn btn-outline-success">Log Out</a>
+
+		<a href="index.php?logout=1" id="logoutBtn" class="btn btn-outline-success">Log Out</a>
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-outline-warning btn-md" data-toggle="modal" data-target="#exampleModal" id="instructions">
+			Instructions
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel"><strong>Instructions</strong></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>This is your personal diary/journal - It's all saved as you type and will be available for you at any time.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Got it!</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 	<!-- Diary -->
@@ -65,6 +97,7 @@
 					}
 				});
 			});
+			$('#myModal').modal(options)
 		});
 	</script>
 </body>
